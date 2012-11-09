@@ -1,0 +1,19 @@
+{
+  "name": "nko3-vox-software",
+  "version": "0.0.0",
+  "description": "Vox Software",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nko3/vox-software.git"
+  },
+  "dependencies": {
+  },
+  "engines": {
+    "node": "0.8.x"
+  },
+  "subdomain": "vox-software.nko3"
+}
