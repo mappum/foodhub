@@ -22,14 +22,14 @@ schema = new Schema
 	picture: String
 	instructions: [String]
 	ingredients: [String]
-	url: 
+	url:
 		type: String
 		index: true
 		unique: true
 	origin: Subrecipe
 	forks: [Subrecipe]
-	date: 
+	date:
 		type: Date
 		default: Date.now
 
-module.exports = new mongoose.Model schema
+module.exports = mongoose.model 'Recipe', schema
