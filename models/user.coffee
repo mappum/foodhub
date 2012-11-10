@@ -7,6 +7,9 @@ schema = new mongoose.Schema
 		unique: true
 	avatar: String
 	email: String
+	date: 
+		type: Date
+		default: Date.now
 	password:
 		hash: String
 		salt: String

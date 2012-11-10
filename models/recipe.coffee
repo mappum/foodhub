@@ -28,5 +28,8 @@ schema = new Schema
 		unique: true
 	origin: Subrecipe
 	forks: [Subrecipe]
+	date: 
+		type: Date
+		default: Date.now
 
-module.exports = mongoose.model 'Recipe', schema
+module.exports = new mongoose.Model schema
