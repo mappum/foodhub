@@ -5,9 +5,9 @@ RestModel = Backbone.Model.extend
 	initialize: -> _.bindAll @, 'url'
 	url: -> "/#{@path}/#{@id}"
 
-Controller = Marionette.Controller.extend
+AppRouter = Marionette.AppRouter.extend
 	initialize: (options) ->
-		@app = options.app
+		@app = options
 
 ItemView = Marionette.ItemView.extend
 	initialize: ->
@@ -18,12 +18,10 @@ ItemView = Marionette.ItemView.extend
 User = RestModel.extend
 	path: 'users'
 
-UserRouter = Marionette.AppRouter.extend
-	appRoutes:
+UserRouter = AppRouter.extend
+	routes:
 		'@:username': 'read'
 		'user/:username': 'read'
-
-UserController = Controller.extend
 	read: (username) ->
 		console.log username
 
@@ -31,16 +29,10 @@ UserController = Controller.extend
 Recipe = RestModel.extend
 	path: 'recipes'
 
-RecipeRouter = Marionette.AppRouter.extend
-	appRoutes:
+RecipeRouter = AppRouter.extend
+	routes:
 		':username/:id': 'read'
 		'/*': 'read'
-
-RecipeController = Controller.extend
-	initialize: (options) ->
-		@app = options
-		_.bindAll @, 'read'
-
 	read: (username, id) ->
 		#model = new Recipe
 		#	username: username
@@ -77,6 +69,11 @@ RecipeController = Controller.extend
 				'Serve immediately. The soup can be made in advance -- store it covered in the refrigerator for up to three days, but thin it out with extra stock as you reheat it.'
 				'The stew can be varied with a seemingly limitless list of mushrooms. Substitute hedgehog, lobster, black trumpet, porcini, portobello, or hen of the woods, so long as you have a total of 2 pounds.',
 			]
+			origin:
+				id: '123455'
+				title: 'Crappy Mushroom Stew'
+				author:
+					username: 'kepzorz'
 
 		@app.mainRegion.show new RecipeView {model: model}
 
@@ -109,8 +106,8 @@ App.addInitializer (options) ->
 	App.navbarView = new NavbarView {model: App.session}
 	App.navbarRegion.show App.navbarView
 
-	new UserRouter {controller: new UserController App}
-	new RecipeRouter {controller: new RecipeController App}
+	new UserRouter App
+	new RecipeRouter App
 
 	Backbone.history.start()
 
