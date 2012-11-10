@@ -1,3 +1,17 @@
+@font-face {
+	font-family: Glyphicons;
+    font-style: normal;
+    font-weight: 400;
+	src: url(/fonts/glyphicons-regular.woff) format('woff');
+}
+
+.icon {
+	font-family: Glyphicons;
+	font-style: normal;
+	font-weight: normal;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
 body {
 	font-size: 20px;
 	line-height: 1.4em;
@@ -13,12 +27,23 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 18px;
 }
 
+.btn {
+	border-radius: 0;
+	font-size: 20px;
+	padding: 6px 16px;
+}
+
 .navbar .navbar-inner {
 	border-bottom: 2px solid #888;
 }
 
 .navbar .nav > li > a {
 	text-transform: none;
+}
+
+.navbar .dropdown-menu a {
+	font-size: 18px;
+	line-height: 22px;
 }
 
 .container-fluid {
@@ -43,8 +68,29 @@ h1, h2, h3, h4, h5, h6 {
 	height: 2000px;
 }
 
+.recipe .fork::before {
+	width: 14px;
+	font-family: Glyphicons;
+	font-size: 27px;
+	content: '\e277';
+	overflow: hidden;
+	height: 0.75em;
+	display: inline-block;
+	padding-top: 3px;
+	position: relative;
+	top: 4px;
+	right: 5px;
+}
+
 .recipe .row-fluid {
 	margin-bottom: 40px;
+}
+
+.recipe .origin {
+	color: black;
+	font-size: 18px;
+	position: relative;
+	top: -1em;
 }
 
 .recipe .image-clear,

@@ -12,7 +12,7 @@
 
   <script type="text/template" id="template-navbar">
     <div class="navbar-inner">
-      <a class="brand" href="#">GrubHub</a>
+      <a class="brand" href="#"><i class="icon">&#xE277;</i>GrubHub</a>
       <ul class="nav">
       </ul>
       <ul class="nav pull-right">
@@ -44,10 +44,13 @@
     <div class="row-fluid">
       <div class="meta span7">
         <h1><%- title %></h1>
+        <% if(typeof origin !== 'undefined' && origin != null) { %>
+          <span class="origin">Forked from <%- origin.author.username %>&#x27;s <a href="/#/<%- origin.author.username %>/<%= origin.id %>"><%- origin.title %></a></span>
+        <% } %>
         <p><%- description %></p>
       </div>
       <div class="actions span5">
-        <button class="btn pull-right">Fork</button>
+        <button class="btn fork pull-right">Fork</button>
       </div>
     </div>
 
@@ -80,7 +83,6 @@
   <script type="text/javascript" src="/js/underscore-min.js"></script>
   <script type="text/javascript" src="/js/backbone-min.js"></script>
   <script type="text/javascript" src="/js/backbone.marionette.min.js"></script>
-  <script type="text/javascript" src="/js/Markdown.Converter.js"></script>
   <script type="text/coffeescript" src="/js/app.coffee"></script>
   <script type="text/javascript" src="/js/coffee-script.js"></script>
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>
