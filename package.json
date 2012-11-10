@@ -1,16 +1,19 @@
 {
   "name": "nko3-vox-software",
-  "version": "0.0.0",
+  "version": "0.0.0-1",
   "description": "Vox Software",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "coffee app.coffee"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:nko3/vox-software.git"
   },
   "dependencies": {
+    "coffee-script": "*",
+    "express": "*",
+    "mongoose": "*"
   },
   "engines": {
     "node": "0.8.x"
