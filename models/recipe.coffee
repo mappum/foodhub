@@ -26,7 +26,9 @@ schema = new mongoose.Schema
 		unique: true
 	origin: Subrecipe
 	forks: [Subrecipe]
-
+	date: 
+		type: Date
+		default: Date.now
 
 
 
