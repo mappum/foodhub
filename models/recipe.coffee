@@ -22,10 +22,6 @@ schema = new Schema
 	picture: String
 	instructions: [String]
 	ingredients: [String]
-	url:
-		type: String
-		index: true
-		unique: true
 	origin: Subrecipe
 	forks: [Subrecipe]
 	date:
