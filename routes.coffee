@@ -8,4 +8,6 @@ module.exports = (app) ->
 	app.get '/recipes/:recipe', recipes.read
 	app.post '/recipes/:recipe', requireLogin, recipes.create
 	app.put '/recipes/:recipe', requireLogin, recipes.update
-	app.delete '/recipes/:recipe', requireLogin, recipes.update
+	app.delete '/recipes/:recipe/', requireLogin, recipes.update
+	app.get '*', (req, res) ->
+		res.redirect "/##{req.path}"
