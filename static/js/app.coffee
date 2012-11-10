@@ -34,6 +34,7 @@ Recipe = RestModel.extend
 RecipeRouter = Marionette.AppRouter.extend
 	appRoutes:
 		':username/:id': 'read'
+		'/*': 'read'
 
 RecipeController = Controller.extend
 	initialize: (options) ->
