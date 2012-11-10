@@ -1,20 +1,88 @@
 <!doctype html>
 <html>
 <head>
-	<title>FoodHub - Find and share recipes</title>
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/style.css">
+  <title>GrubHub - Find and share recipes</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<script type="text/template" id="template-navbar">
-		<
-	</script>
+  <div id="navbar"></div>
+  <div id="main" class="container-fluid"></div>
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-	<script type="text/javascript" src="/js/underscore-min.js"></script>
-	<script type="text/javascript" src="/js/backbone-min.js"></script>
-	<script type="text/javascript" src="/js/backbone.marionette.min.js"></script>
-	<script type="text/coffeescript" src="/js/app.coffee"></script>
-	<script type="text/javascript" src="/js/coffee-script.js"></script>
+  <script type="text/template" id="template-navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="#">GrubHub</a>
+      <ul class="nav">
+      </ul>
+      <ul class="nav pull-right">
+        <li class="dropdown">
+          <% if(typeof user !== 'undefined' && user != null) { %>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img class="thumbnail avatar-small" src="<%= user.get('avatar') %>">
+              <%- user.get('username') %> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          <% } else { %>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><input type="text" placeholder="Username or email"></li>
+              <li><input type="text" placeholder="Password"></li>
+              <li><button class="btn">Sign in</button></li>
+              <li class="divider"></li>
+              <li><a href="#">Create a GrubHub account</a></li>
+            </ul>
+          <% } %>
+        </li>
+      </ul>
+    </div>
+  </script>
+
+  <script type="text/template" id="template-recipe">
+    <div class="row-fluid">
+      <div class="meta span7">
+        <h1><%- title %></h1>
+        <p><%- description %></p>
+      </div>
+      <div class="actions span5">
+        <button class="btn pull-right">Fork</button>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="recipe-image"><img src="<%= image %>"></div>
+    </div>
+    <div class="image-clear"></div>
+
+    <div class="row-fluid">
+      <div class="span5">
+        <h2>Ingredients</h2>
+        <ul class="ingredients">
+        <% for(var i = 0; i < ingredients.length; i++) { %>
+          <li><%- ingredients[i] %>
+        <% } %>
+        </ul>
+      </div>
+      <div class="span7">
+        <h2>Steps</h2>
+        <ol class="steps">
+        <% for(var i = 0; i < steps.length; i++) { %>
+          <li><%- steps[i] %>
+        <% } %>
+        </ol>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/underscore-min.js"></script>
+  <script type="text/javascript" src="/js/backbone-min.js"></script>
+  <script type="text/javascript" src="/js/backbone.marionette.min.js"></script>
+  <script type="text/javascript" src="/js/Markdown.Converter.js"></script>
+  <script type="text/coffeescript" src="/js/app.coffee"></script>
+  <script type="text/javascript" src="/js/coffee-script.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 </body>
 </html>

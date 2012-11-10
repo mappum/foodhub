@@ -1,0 +1,90 @@
+body {
+	font-size: 20px;
+	line-height: 1.4em;
+	color: #555;
+	font-family: 'Lora', serif;
+}
+
+p {
+	margin: 0 0 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0 0 18px;
+}
+
+.navbar .navbar-inner {
+	border-bottom: 2px solid #888;
+}
+
+.navbar .nav > li > a {
+	text-transform: none;
+}
+
+.container-fluid {
+	padding: 0 80px;
+}
+
+.row-fluid .span5 {
+	width: 36.425532%;
+	margin-left: 6.12766%;
+}
+
+.avatar-small {
+	width: 34px;
+	float: left;
+	position: relative;
+	top: -8px;
+	margin: 0 6px 0 0;
+	padding: 2px;
+}
+
+.recipe {
+	height: 2000px;
+}
+
+.recipe .row-fluid {
+	margin-bottom: 40px;
+}
+
+.recipe .image-clear,
+.recipe .recipe-image {
+	height: 600px;
+	margin-bottom: 30px;
+}
+
+.recipe .recipe-image {
+	width: 100%;
+	min-width: 1200px;
+	max-width: 1920px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+}
+.recipe .recipe-image img {
+	position: relative;
+	top: -284px;
+}
+
+.recipe li {
+	font-size: 20px;
+	line-height: 29px;
+}
+
+.recipe .ingredients {
+	width: 80%;
+}
+
+.recipe .ingredients li {
+	margin-bottom: 10px;
+}
+
+.recipe .steps li {
+	margin-bottom: 24px;
+}
+
+.recipe .actions {
+	height: 60px;
+	margin-bottom: 16px;
+}
