@@ -1,25 +1,27 @@
 mongoose = require 'mongoose'
+Schema = mongoose.Schema
+ObjectId = Schema.Types.ObjectId
 
-Author = new mongoose.Schema
-	userid: ObjectId
+Author =
+	userId: ObjectId
 	username: String
 	avatar: String
 
-Subrecipe = new mongoose.Schema
+Subrecipe =
 	url: String
 	author: Author
 	title: String
 
-schema = new mongoose.Schema
+schema = new Schema
 	title: String
-	author: 
-		type: Author
+	author: Author
+	username:
+		type: String
 		index: true
 	description: String
 	picture: String
 	instructions: [String]
 	ingredients: [String]
-	id: ObjectId
 	url: 
 		type: String
 		index: true
@@ -27,7 +29,4 @@ schema = new mongoose.Schema
 	origin: Subrecipe
 	forks: [Subrecipe]
 
-
-
-
-module.exports = new mongoose.Model schema
+module.exports = mongoose.model 'Recipe', schema

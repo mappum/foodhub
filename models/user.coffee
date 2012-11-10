@@ -11,4 +11,4 @@ schema = new mongoose.Schema
 		hash: String
 		salt: String
 
-module.exports = new mongoose.Model schema	
+module.exports = mongoose.model 'User', schema	
