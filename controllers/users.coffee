@@ -15,7 +15,7 @@ module.exports =
 		hash.update salt
 
 		user = new User
-			username: req.body.name
+			username: req.body.username
 			email: req.body.email
 			avatar: gravatar.url(req.body.email,
 				s: 200
@@ -24,11 +24,10 @@ module.exports =
 			password:
 				hash: hash.digest 'hex'
 				salt: salt.toString 'hex'
-		req.session.regenerate (req, res)->
+		req.session.regenerate (err)->
 			if err then res.error(500)
 			else
 				req.setUser
 				user.save res.mongo
-		console.log('created user!')
 	read: (req, res) ->
 		console.log('read user..')
