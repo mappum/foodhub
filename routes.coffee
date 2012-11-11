@@ -14,7 +14,7 @@ module.exports = (app) ->
 	app.post '/recipes', requireLogin, recipes.create
 	app.put '/recipes/:recipe', requireLogin, recipes.update
 	app.delete '/recipes/:recipe/', requireLogin, recipes.update
-	app.post '/recipes/:recipe/fork'
+	app.get '/recipes/:recipe/fork', requireLogin, recipes.fork
 
 	app.get '/users/:username', users.read
 	app.post '/users', users.create

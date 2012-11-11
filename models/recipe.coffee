@@ -14,10 +14,7 @@ Subrecipe =
 
 schema = new Schema
 	title: String
-	author: String
-	username:
-		type: String
-		index: true
+	author: String #deleting username here. do I still need it for any reason?
 	description: String
 	picture: String
 	instructions: [String]

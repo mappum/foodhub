@@ -4,17 +4,14 @@ Recipe = models.Recipe
 recipes = module.exports =
 
 	create: (req, res)->
+		console.log req.body, req.session.user.username
 		new Recipe(
 			title: req.body.title
 			description: req.body.description
 			ingredients: req.body.ingredients
 			instructions: req.body.instructions
 			picture: req.body.picture
-			username: req.session.user.username
-			author:
-				userId: req.session.user.userid
-				username: req.session.user.username
-				avatar: req.session.user.avatar
+			author: req.session.user.username
 
 		).save res.mongo
 
@@ -24,13 +21,14 @@ recipes = module.exports =
 			, (err, doc)->
 				if err then res.error(401)
 				else
+					console.log doc
 					new Recipe(
 						title: doc.title
 						description: doc.description
 						ingredients: doc.ingredients
 						instructions: doc.instructions
 						picture: doc.picture
-						username: req.session.user.username
+						author: req.session.user.username
 						origin: 
 							id: doc._id
 							author: doc.author
