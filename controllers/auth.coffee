@@ -36,3 +36,13 @@ auth = module.exports =
 		req.setUser = setUser.bind req
 		next()
 	checkPassword: checkPassword
+	login: (req, res) ->
+		checkPassword req.body.user, req.body.password, (user) ->
+			req.setUser user
+
+			res.json req.session.user
+		, ()->
+			res.error 400
+	logout: (req, res) ->
+		req.setUser undefined
+		res.redirect '/'
