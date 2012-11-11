@@ -13,7 +13,9 @@
   "dependencies": {
     "coffee-script": "*",
     "express": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "gravatar": "*",
+    "connect-redis": "*"
   },
   "engines": {
     "node": "0.8.x"
