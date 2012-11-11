@@ -35,7 +35,7 @@ Recipe = RestModel.extend
 
 RecipeRouter = AppRouter.extend
 	routes:
-		':id': 'read'
+		'recipe/:id': 'read'
 	read: (id) ->
 		if id != 'test'
 			model = new Recipe
@@ -202,9 +202,9 @@ app.addInitializer (options) ->
 	app.navbarView = new NavbarView {model: app.session}
 	app.navbarRegion.show app.navbarView
 
+	new PageRouter app
 	new UserRouter app
 	new RecipeRouter app
-	new PageRouter app
 
 	Backbone.history.start()
 

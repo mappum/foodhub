@@ -49,7 +49,7 @@
         <h1 class="<%= editable %>"><%- title %></h1>
         <span class="author">by <%- author %></span>
         <% if(typeof origin !== 'undefined' && origin != null) { %>
-          <span class="origin"> - Forked from <%- origin.author %>&#x27;s <a href="/#/<%= origin.id %>"><%- origin.title %></a></span>
+          <span class="origin"> - Forked from <%- origin.author %>&#x27;s <a href="/#/recipe/<%= origin.id %>"><%- origin.title %></a></span>
         <% } %>
         <p class="<%= editable %>"><%- description %></p>
       </div>
@@ -96,17 +96,17 @@
     <div class="row-fluid">
       <h2><i class="icon icon-fork"></i>Most Forked</h2>
       <ul class="recipe-collection">
-        <a href="/#/foo"><li class="recipe span4">
+        <a href="/#/recipe/test"><li class="recipe span4">
           <h3 class="title">Mushroom Stew</h3>
           <span class="author">by mappum</span>
           <img class="image" src="http://media-mcw.cursecdn.com/7/7e/Mushroomsoup.png">
         </li></a>
-        <a href="/#/foo"><li class="recipe span4">
+        <a href="/#/recipe/test"><li class="recipe span4">
           <h3 class="title">Bread</h3>
           <span class="author">by mappum</span>
           <img class="image" src="http://media-mcw.cursecdn.com/f/ff/Bread2.png">
         </li></a>
-        <a href="/#/foo"><li class="recipe span4">
+        <a href="/#/recipe/test"><li class="recipe span4">
           <h3 class="title">Steak</h3>
           <span class="author">by mappum</span>
           <img class="image" src="http://media-mcw.cursecdn.com/6/66/Steak.png">
@@ -118,17 +118,17 @@
     <div class="row-fluid">
       <h2><i class="icon">&#xE055;</i>Recent</h2>
       <ul class="recipe-collection">
-        <a href="/#/foo"><li class="recipe span4">
+        <a href="/#/recipe/test"><li class="recipe span4">
           <h3 class="title">Steak</h3>
           <span class="author">by mappum</span>
           <img class="image" src="http://media-mcw.cursecdn.com/6/66/Steak.png">
         </li></a>
-        <a href="/#/foo"><li class="recipe span4">
+        <a href="/#/recipe/test"><li class="recipe span4">
           <h3 class="title">Mushroom Stew</h3>
           <span class="author">by mappum</span>
           <img class="image" src="http://media-mcw.cursecdn.com/7/7e/Mushroomsoup.png">
         </li></a>
-        <a href="/#/foo"><li class="recipe span4">
+        <a href="/#/recipe/test"><li class="recipe span4">
           <h3 class="title">Bread</h3>
           <span class="author">by mappum</span>
           <img class="image" src="http://media-mcw.cursecdn.com/f/ff/Bread2.png">
