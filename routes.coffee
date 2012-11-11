@@ -10,11 +10,14 @@ requireLogout = (req, res, next) ->
 	if not req.session.userId? then next() else res.error 401, 'should be logged out'
 
 module.exports = (app) ->
+	app.get '/mostforked/:num', recipes.mostForked
+
 	app.get '/recipes/:recipe', recipes.read
 	app.post '/recipes', requireLogin, recipes.create
 	app.put '/recipes/:recipe', requireLogin, recipes.update
 	app.delete '/recipes/:recipe/', requireLogin, recipes.delete
 	app.get '/recipes/:recipe/fork', requireLogin, recipes.fork
+
 
 	app.get '/users/:username', users.read
 	app.post '/users', users.create

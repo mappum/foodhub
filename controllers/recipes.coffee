@@ -35,6 +35,8 @@ recipes = module.exports =
 							title: doc.title
 
 					).save res.mongo
+					doc.numforks++
+					doc.save()
 	read: (req, res) ->
 		Recipe.findOne
 			'_id': req.params.recipe,
@@ -56,7 +58,14 @@ recipes = module.exports =
 			'_id': req.params.recipe
 			'author': req.session.user.username
 		, res.mongo
-	
+
+	mostForked: (req, res) ->
+		console.log 'called mostforked'
+		Recipe.find()
+		.sort('-numforks')
+		.limit(req.params.num) 
+		.exec res.mongo
+		
 
 
 
