@@ -33,6 +33,32 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 6px 16px;
 }
 
+.editable:hover {
+	background: #eee;
+	position: relative;
+	cursor: text;
+}
+.editable:hover::after {
+	color: black;
+	content: '\270f';
+	font-family: Glyphicons;
+	font-size: 0.85em;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin: 5px;
+}
+
+.editable textarea {
+	display: block;
+	border: none !important;
+	outline: none !important;
+	box-shadow: none !important;
+	background: transparent;
+	overflow: hidden;
+	resize: none;
+}
+
 .navbar .navbar-inner {
 	border-bottom: 2px solid #888;
 }

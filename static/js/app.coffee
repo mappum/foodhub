@@ -75,18 +75,87 @@ RecipeRouter = AppRouter.extend
 				author:
 					username: 'kepzorz'
 
-		@app.mainRegion.show new RecipeView {model: model}
+		@app.mainRegion.show new RecipeView {model: model, session: @app.session}
 
 RecipeView = ItemView.extend
 	template: '#template-recipe'
 	tagName: 'div'
 	className: 'row-fluid recipe'
+	events:
+		'mouseenter .editable': 'edit'
+
+	initialize: (options) ->
+		# TODO: reorganize? it's kind of hacky to put the session in the model
+		@model.set 'session', options.session
+		_.bindAll @, 'render'
+		@model.on 'change', @render
+
+	edit: (e) ->
+		parent = $ e.target
+		if parent.hasClass('editing') or parent.prop('tagName') is 'TEXTAREA' then return
+		parent.addClass 'editing'
+
+		originalText = parent.text().replace(/[\n\r]+/g, ' ').trim()
+
+		child = $ document.createElement 'textarea'
+		child.attr 'rows', '1'
+		child.attr 'placeholder', 'Click to edit'
+		child.val originalText
+		child.css
+			'color': parent.css 'color'
+			'font': parent.css 'font'
+			'line-height': parent.css 'line-height'
+			'padding': parent.css 'padding'
+			'margin': parent.css 'margin'
+			'height': parent.height()
+			'width': parent.width()
+		child.keydown (e) =>
+			if e.which is 13
+				e.preventDefault()
+				if parent.prop('tagName') is 'LI'
+					text = child.val()
+					before = text.substr 0, child.get(0).selectionStart
+					after = text.substr child.get(0).selectionEnd
+					console.log before, after
+
+					newEl = $ document.createElement 'li'
+					newEl.attr 'class', parent.attr 'class'
+					newEl.removeClass 'editing'
+					newEl.removeClass 'focused'
+					newEl.mouseenter @edit
+
+					newEl.text before
+					child.val after
+
+					child.setCursorPosition(0);
+
+					newEl.insertBefore parent
+		unedit = (e) =>
+			if parent.hasClass 'focused' then return
+			text = child.val().trim()
+			console.log parent.parent
+			if not text and parent.prop('tagName') is 'LI' and parent.parent().find('li').length > 1
+				return parent.remove()
+			parent.empty().text text
+			parent.removeClass 'editing'
+			if originalText != text
+				@trigger 'edit', {el: parent, text: text}
+		child.mouseleave unedit
+		child.focus (e) ->
+			parent.addClass 'focused'
+			@$el.find('.editable').removeClass 'editable'
+			parent.addClass 'editable'
+		child.blur (e) ->
+			parent.removeClass 'focused'
+			unedit()
+
+		parent.empty().append child
 
 ######## SESSION STUFF ########
 Session = Backbone.Model.extend
 	initialize: (options) ->
 		#TODO: check session state
-		this.set 'user', new User {username: 'mappum', avatar: 'http://placehold.it/128x128'}
+		this.set 'user', new User {username: 'mappum', avatar: 'http://placehold.it/128x128', userId: '0'}
 
 NavbarView = Marionette.ItemView.extend
 	tagName: 'div'

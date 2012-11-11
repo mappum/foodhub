@@ -41,16 +41,17 @@
   </script>
 
   <script type="text/template" id="template-recipe">
+    <% var editable = author.userId === session.get('user').get('userId') ? 'editable' : '' %>
     <div class="row-fluid">
       <div class="meta span7">
-        <h1><%- title %></h1>
+        <h1 class="<%= editable %>"><%- title %></h1>
         <% if(typeof origin !== 'undefined' && origin != null) { %>
           <span class="origin">Forked from <%- origin.author.username %>&#x27;s <a href="/#/<%- origin.author.username %>/<%= origin.id %>"><%- origin.title %></a></span>
         <% } %>
-        <p><%- description %></p>
+        <p class="<%= editable %>"><%- description %></p>
       </div>
       <div class="actions span5">
-        <button class="btn fork pull-right">Fork</button>
+        <button class="btn btn-success fork pull-right">Fork this Recipe</button>
       </div>
     </div>
 
@@ -64,7 +65,7 @@
         <h2>Ingredients</h2>
         <ul class="ingredients">
         <% for(var i = 0; i < ingredients.length; i++) { %>
-          <li><%- ingredients[i] %>
+          <li class="<%= editable %>"><%- ingredients[i] %>
         <% } %>
         </ul>
       </div>
@@ -72,7 +73,7 @@
         <h2>Steps</h2>
         <ol class="steps">
         <% for(var i = 0; i < steps.length; i++) { %>
-          <li><%- steps[i] %>
+          <li class="<%= editable %>"><%- steps[i] %>
         <% } %>
         </ol>
       </div>
@@ -86,5 +87,20 @@
   <script type="text/coffeescript" src="/js/app.coffee"></script>
   <script type="text/javascript" src="/js/coffee-script.js"></script>
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    new function($) {
+    $.fn.setCursorPosition = function(pos) {
+      if ($(this).get(0).setSelectionRange) {
+        $(this).get(0).setSelectionRange(pos, pos);
+      } else if ($(this).get(0).createTextRange) {
+        var range = $(this).get(0).createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', pos);
+        range.moveStart('character', pos);
+        range.select();
+      }
+    }
+  }(jQuery);
+  </script>
 </body>
 </html>
