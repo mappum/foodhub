@@ -8,13 +8,13 @@ Author =
 	avatar: String
 
 Subrecipe =
-	url: String
-	author: Author
+	id: String
+	author: String
 	title: String
 
 schema = new Schema
 	title: String
-	author: Author
+	author: String
 	username:
 		type: String
 		index: true
