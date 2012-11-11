@@ -53,8 +53,8 @@ recipes = module.exports =
 					doc.save res.mongo
 	delete: (req, res) ->
 		Recipe.remove 
-			'_id': req.params._id
-			'username': req.session.user.username
+			'_id': req.params.recipe
+			'author': req.session.user.username
 		, res.mongo
 	
 
