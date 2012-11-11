@@ -31,5 +31,5 @@ app.use (req, res, next) ->
 	next()
 
 require('./routes') app
-
+app.use(require(__dirname + '/controllers/auth.coffee').middleware)
 app.listen config.port
