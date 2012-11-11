@@ -40,7 +40,7 @@ Recipe = RestModel.extend
         instructions: []
     initialize: ->
         _.bindAll @, 'isNew'
-    isNew: -> return not @_id?
+    isNew: -> return not @get('_id')?
 
 
 RecipeCollection = Backbone.Collection.extend
@@ -80,6 +80,7 @@ RecipeView = Marionette.ItemView.extend
         @model.set 'session', options.session
         _.bindAll @, 'render', 'updateModel'
         @model.on 'change', @render
+        if not @model.get('newPost') then @on 'edit', @submit
 
     edit: (e) ->
         parent = $ e.target
@@ -153,6 +154,7 @@ RecipeView = Marionette.ItemView.extend
             (file) =>
                 @updateModel()
                 @model.set 'picture', file.url
+                @trigger 'edit'
 
     updateModel: ->
         getText = ($el) ->
@@ -177,6 +179,7 @@ RecipeView = Marionette.ItemView.extend
 
     submit: ->
         @updateModel()
+        console.log @model.attributes
         @model.save null,
             success: (res) ->
                 window.location = '/#/recipe/' + res.get('_id')
