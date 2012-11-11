@@ -47,12 +47,12 @@
     <% var editable = (session.get('loggedIn') && author === session.get('user').get('username')) ? 'editable' : '' %>
     <div class="row-fluid">
       <div class="meta span7">
-        <h1 class="<%= editable %> title" placeholder="Title"><%- title || 'Title' %></h1>
-        <span class="author">by <%- author %></span>
+        <h1 class="<%= editable %> title" placeholder="Title"><%- title || (editable ? 'Title' : '') %></h1>
+        <span class="author"><% author ? 'by' : '' %> <%- author %></span>
         <% if(typeof origin !== 'undefined' && origin != null) { %>
           <span class="origin"> - Forked from <%- origin.author %>&#x27;s <a href="/#/recipe/<%= origin.id %>"><%- origin.title %></a></span>
         <% } %>
-        <p class="<%= editable %> description" placeholder="Description"><%- description || 'Description' %></p>
+        <p class="<%= editable %> description" placeholder="Description"><%- description || (editable ? 'Description' : '') %></p>
       </div>
       <div class="actions span5">
         <% if(typeof newPost !== 'undefined' && newPost) { %>
