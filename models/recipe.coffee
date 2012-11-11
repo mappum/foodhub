@@ -14,7 +14,7 @@ Subrecipe =
 
 schema = new Schema
 	title: String
-	author: String #deleting username here. do I still need it for any reason?
+	author: String 
 	description: String
 	picture: String
 	instructions: [String]
