@@ -36,43 +36,9 @@ RecipeRouter = AppRouter.extend
 	routes:
 		'recipe/:id': 'read'
 	read: (id) ->
-		if id != 'test'
-			model = new Recipe
-				_id: id
-			model.fetch()
-		else
-			model = new Recipe
-				id: id
-				author: 'mappum'
-				title: 'Mushroom Stew'
-				picture: 'http://www.applecrumbles.com/wp-content/uploads/2009/11/DSC_2263.jpg'
-				description: 'Mushrooms. Boil \'em, mash \'em, stick \'em in a stew. Bla bla bla bla ofgihd dsgoihj gjfdg gj dfgjo text about mushroom stew.\n\nSomethign else.'
-				ingredients: [
-					'3 Tablespoons olive oil'
-					'2 medium onions, chopped'
-					'3 garlic cloves, minced'
-					'1 pound cremini mushrooms, cleaned and roughly chopped'
-					'1 pound shiitake mushrooms, stemmed, cleaned, and caps roughly chopped'
-					'1/2 pound red-skinned potatoes, such as Red Bliss or All Reds, cut into 1/2-inch pieces'
-					'1/2 pound yellow-fleshed potatoes, such as Austrian Crescent or Yukon Gold, cut into 1/2-inch pieces'
-					'1 Tablespoon minced fresh rosemary'
-					'1 Tablespoon minced fresh sage'
-					'1 Tablespoon fresh thyme'
-					'2 cups mushroom or vegetable stock'
-					'1/2 cup chopped fresh parsley'
-					'1 teaspoon salt'
-					'1/2 teaspoon freshly ground black pepper'
-				]
-				instructions: [
-					'Heat a large pot over medium-high heat. Swirl in the olive oil, then add the onions and cook until soft and fragrant, about 4 minutes, stirring often. Add the garlic and cook for 30 seconds. Stir in the cremini and shiitake mushrooms. Cook just until the mushrooms begin to give off their liquid, about 3 minutes, stirring frequently. '
-					'Stir in both red potatoes and gold potatoes with a wooden spoon, then add the rosemary, sage, and thyme. Cook just until aromatic, about 30 seconds. Stir in the stock, cover, and reduce the heat to low. Simmer until the potatoes are soft when pierced with a fork, about 12 minutes. Gently stir in the parsley, salt, and pepper and cook for another 2 minutes to bind the flavors. '
-					'Serve immediately. The soup can be made in advance -- store it covered in the refrigerator for up to three days, but thin it out with extra stock as you reheat it.'
-					'The stew can be varied with a seemingly limitless list of mushrooms. Substitute hedgehog, lobster, black trumpet, porcini, portobello, or hen of the woods, so long as you have a total of 2 pounds.',
-				]
-				origin:
-					id: '123455'
-					title: 'Crappy Mushroom Stew'
-					author: 'kepzorz'
+		model = new Recipe
+			_id: id
+		model.fetch()
 
 		@navigate new RecipeView {model: model, session: @app.session}
 
