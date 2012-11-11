@@ -6,6 +6,7 @@ Subrecipe =
 	id: String
 	author: String
 	title: String
+	picture: String
 
 schema = new Schema
 	title: String

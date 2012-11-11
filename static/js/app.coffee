@@ -234,8 +234,12 @@ Session = Backbone.Model.extend
             url: '/users'
             type: 'POST'
             data: data
-            success: ->
+            success: =>
                 if callback? then callback null
+                @login
+                    user: data.username
+                    password: data.password, ->
+                        window.location = '/'
             error: callback
 
 NavbarView = ItemView.extend
