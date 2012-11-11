@@ -2,11 +2,6 @@ mongoose = require 'mongoose'
 Schema = mongoose.Schema
 ObjectId = Schema.Types.ObjectId
 
-Author =
-	userId: ObjectId
-	username: String
-	avatar: String
-
 Subrecipe =
 	id: String
 	author: String
