@@ -1,6 +1,6 @@
 {
   "name": "nko3-vox-software",
-  "version": "0.0.0-4",
+  "version": "0.1.0",
   "description": "Vox Software",
   "main": "server.js",
   "scripts": {
@@ -20,5 +20,5 @@
   "engines": {
     "node": "0.8.x"
   },
-  "subdomain": "vox-software.nko3"
+  "subdomain": "grubhub"
 }
