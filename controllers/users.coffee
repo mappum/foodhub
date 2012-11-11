@@ -30,4 +30,12 @@ module.exports =
 				req.setUser
 				user.save res.mongo
 	read: (req, res) ->
-		console.log('read user..')
+		User.find 
+			username: req.params.username
+		, res.mongo
+	update: (req, res) ->
+		#TODO: allow user to change their information
+	delete: (req, res) ->
+		#TODO: allow account deletion
+
+		
