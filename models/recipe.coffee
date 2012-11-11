@@ -16,6 +16,7 @@ schema = new Schema
 	ingredients: [String]
 	origin: Subrecipe
 	forks: [Subrecipe]
+	numforks: Number
 	date:
 		type: Date
 		default: Date.now
