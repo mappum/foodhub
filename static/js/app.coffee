@@ -249,12 +249,15 @@ NavbarView = ItemView.extend
     events:
         'click fieldset.login .submit': 'login'
         'click fieldset.login': 'noClick'
-        'keypress fieldset.login': 'onKey'
+        'keypress fieldset.login': 'onKey' 
     login: (e) ->
         login = @$el.find 'fieldset.login'
         @model.login
             user: login.find('.user').val()
-            password: login.find('.password').val()
+            password: login.find('.password').val(), (err) ->
+                if err?
+                    login.addClass 'error'
+                    login.find('.errorMessage').text 'Invalid user or password :('
     noClick: (e) ->
         e.preventDefault()
         return false
@@ -281,8 +284,11 @@ RegisterPageView = ItemView.extend
         @model.register
             email: @$el.find('.email').val()
             password: @$el.find('.password').val()
-            username: @$el.find('.username').val(), (err, doc) ->
-
+            username: @$el.find('.username').val(), (err) =>
+                if err?
+                    @$el.find('.register-form').addClass 'error'
+                    console.log err
+                    @$el.find('.register-form .errorMessage').text JSON.parse(err.responseText).error
 
 PageRouter = AppRouter.extend
     routes:

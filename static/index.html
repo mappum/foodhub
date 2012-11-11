@@ -32,9 +32,10 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <fieldset class="login">
-              <li><input type="text" class="user" placeholder="Username or email"></li>
-              <li><input type="password" class="password" placeholder="Password"></li>
-              <li><button class="btn submit">Sign in</button></li>
+                <span class="errorMessage"></span>
+                <li><input type="text" class="user" placeholder="Username or email"></li>
+                <li><input type="password" class="password" placeholder="Password"></li>
+                <li><button class="btn submit">Sign in</button></li>
               </fieldset>
               <li class="divider"></li>
               <li><a href="/#/register">Create a GrubHub account</a></li>
@@ -138,10 +139,13 @@
   <script type="text/template" id="template-register">
     <% if(!loggedIn) { %>
       <h1>Sign up for GrubHub</h1>
-      <div class="control-group"><input class="email" type="text" placeholder="Email address"></div>
-      <div class="control-group"><input class="username" type="text" placeholder="Username"></div>
-      <div class="control-group"><input class="password" type="password" placeholder="Password"></div>
-      <div class="control-group"><button class="btn btn-warning submit">Sign up</button></div>
+      <fieldset class="register-form">
+        <span class="errorMessage"></span>
+        <div class="control-group"><input class="email" type="text" placeholder="Email address"></div>
+        <div class="control-group"><input class="username" type="text" placeholder="Username"></div>
+        <div class="control-group"><input class="password" type="password" placeholder="Password"></div>
+        <div class="control-group"><button class="btn btn-warning submit">Sign up</button></div>
+      </fieldset>
     <% } %>
   </script>
 

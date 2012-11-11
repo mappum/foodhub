@@ -109,6 +109,15 @@ h1, h2, h3, h4, h5, h6 {
 	line-height: 22px;
 }
 
+fieldset .errorMessage {
+	color: red;
+	margin-bottom: 16px;
+	display: block;
+}
+fieldset.error input {
+	border-color: red;
+}
+
 .container-fluid {
 	padding: 0 80px;
 }
