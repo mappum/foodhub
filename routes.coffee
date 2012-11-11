@@ -19,9 +19,9 @@ module.exports = (app) ->
 	app.get '/users/:username', users.read
 	app.post '/users', users.create
 
+	app.get '/auth', requireLogin, auth.getState
 	app.post '/auth', requireLogout, auth.login
 	app.get '/logout', auth.logout
-
 
 	# catch invalid paths
 	app.get '*', (req, res) ->

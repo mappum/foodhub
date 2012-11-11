@@ -18,18 +18,15 @@ checkPassword = (user, pass, success, failure) ->
 
 
 setUser = (user) ->
-	if user
+	if user?
 		this.session.userId = user._id
 		this.session.user = 
 			_id: user._id
 			username: user.username
 			email: user.email
 			avatar: user.avatar
-		this.session.save()
 	else
-		this.session.user = undefined
-		this.session.userId = undefined
-		this.session.destroy()
+		this.session = null
 
 auth = module.exports = 
 	middleware: (req, res, next) ->
@@ -44,5 +41,7 @@ auth = module.exports =
 		, ()->
 			res.error 400
 	logout: (req, res) ->
-		req.setUser undefined
+		req.setUser null
 		res.redirect '/'
+	getState: (req, res) ->
+		res.json req.session.userId

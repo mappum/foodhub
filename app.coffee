@@ -7,16 +7,20 @@ sessionStore = new RedisStore(config.redis)
 app = express()
 mongoose.connect config.mongoUri
 
+app.use express.compress()
+app.configure 'development', ->	
+	app.use express.errorHandler
+		dumpExceptions: true
+		showStack: true
 app.use express.static './static'
 app.use express.bodyParser()
 app.use express.cookieParser()
-
-app.use express.session
+app.use express.cookieSession
 	store: sessionStore
 	secret: config.session.cookie.secret
 	key: config.session.cookie.key
-	maxAge: config.session.cookie.maxAge
-	ignore: config.session.ignore
+	cookie:
+		maxAge: config.session.cookie.maxAge
 
 app.use (req, res, next) ->
 	res.error = (code, err) ->

@@ -25,12 +25,10 @@ module.exports =
 				hash: hash.digest 'hex'
 				salt: salt.toString 'hex'
 
-		console.log req
-		req.session.regenerate (err)->
-			if err then res.error(500)
-			else
-				req.setUser
-				user.save res.mongo
+		req.session = null
+		
+		req.setUser
+		user.save res.mongo
 	read: (req, res) ->
 		User.find 
 			username: req.params.username
