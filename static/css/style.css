@@ -285,3 +285,7 @@ fieldset.error input {
 	position: relative;
 	top: -24px;
 }
+
+.vote {
+	margin-top: 20px;
+}
