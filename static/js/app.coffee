@@ -73,6 +73,7 @@ RecipeView = Marionette.ItemView.extend
         'mouseenter .editable': 'edit'
         'click .upload-image': 'uploadImage'
         'click .submit': 'submit'
+        'click .fork': 'fork'
 
     initialize: (options) ->
         # TODO: reorganize? it's kind of hacky to put the session in the model
@@ -117,7 +118,7 @@ RecipeView = Marionette.ItemView.extend
                     newEl.text before
                     child.val after
 
-                    child.setCursorPosition(0);
+                    child.setCursorPosition 0
 
                     newEl.insertBefore parent
         unedit = (e) =>
@@ -179,6 +180,13 @@ RecipeView = Marionette.ItemView.extend
         @model.save null,
             success: (res) ->
                 window.location = '/#/recipe/' + res.get('_id')
+
+    fork: ->
+        $.ajax
+            url: '/recipes/' + @model.get('_id') + '/fork'
+            type: 'POST'
+            success: (res) ->
+                window.location = '/#/recipe/' + res._id
 
 RecipeThumbnailView = ItemView.extend
     tagName: 'li'

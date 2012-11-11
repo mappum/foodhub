@@ -35,7 +35,7 @@ recipes = module.exports =
 							title: doc.title
 
 					).save res.mongo
-					doc.numforks++
+					doc.numforks = (doc.numforks + 1) or 1
 					doc.save()
 	read: (req, res) ->
 		Recipe.findOne
