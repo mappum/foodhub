@@ -17,7 +17,7 @@
       </ul>
       <ul class="nav pull-right">
         <li class="dropdown">
-          <% if(typeof user !== 'undefined' && user != null) { %>
+          <% if(loggedIn) { %>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img class="thumbnail avatar-small" src="<%= user.get('avatar') %>">
               <%- user.get('username') %> <b class="caret"></b>
@@ -44,8 +44,7 @@
 
   <script type="text/template" id="template-recipe">
     <% if(typeof title !== 'undefined' && title) { %>
-    <% var loggedIn = typeof session.get('user') !== 'undefined' && session.get('user') != null %>
-    <% var editable = (loggedIn && author === session.get('user').get('username')) ? 'editable' : '' %>
+    <% var editable = (session.get('loggedIn') && author === session.get('user').get('username')) ? 'editable' : '' %>
     <div class="row-fluid">
       <div class="meta span7">
         <h1 class="<%= editable %>"><%- title %></h1>

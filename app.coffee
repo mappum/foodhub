@@ -24,11 +24,13 @@ app.use express.cookieSession
 
 app.use (req, res, next) ->
 	res.error = (code, err) ->
-		if not err? then err = code
-		res.json code or 500, {error: err}
+		if not err?
+			err = code
+			code = 500
+		res.json code, {error: err}
 
 	res.mongo = (err, doc) ->
-		if err then res.error err
+		if err then res.error 500, 'An error occurred.'
 		else res.json doc
 
 	next()

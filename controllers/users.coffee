@@ -7,7 +7,7 @@ config = require(__dirname + '/../config.coffee')
 module.exports = 
 	create: (req, res) ->
 		if req.body.password.length < 6 
-			res.error(400)
+			res.error 400, 'Password must be at least 6 characters long.'
 			return
 		hash = crypto.createHash 'sha256'
 		salt = crypto.randomBytes 32

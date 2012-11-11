@@ -150,23 +150,29 @@ RecipeView = ItemView.extend
 ######## SESSION STUFF ########
 Session = Backbone.Model.extend
 	initialize: (options) ->
-		#TODO: check session state
-		#this.set 'user', new User {username: 'mappum', avatar: 'http://placehold.it/128x128', userId: '0'}
-		_.bindAll @, 'login'
+		@set 'loggedIn', false
+		@getState()
+		_.bindAll @, 'getState', 'login', 'register'
 
 	getState: (data, callback) ->
-		$.ajax
-			url: '/auth'
-			type: 'POST'
+		user = new User
+		user.url = '/auth'
+		user.fetch
+			success: (res) =>
+				if callback? then callback null
+				@set 'user', user
+				@set 'loggedIn', true
+				@trigger 'change', user
+			error: callback
 
 	login: (data, callback) ->
 		$.ajax
 			url: '/auth'
 			type: 'POST'
 			data: data
-			success: ->
-				window.location = ''
-				callback null
+			success: (res) =>
+				if callback? then callback null
+				@getState()
 			error: callback
 
 	register: (data, callback) ->
@@ -175,8 +181,7 @@ Session = Backbone.Model.extend
 			type: 'POST'
 			data: data
 			success: ->
-				window.location = ''
-				callback null
+				if callback? then callback null
 			error: callback
 
 NavbarView = ItemView.extend

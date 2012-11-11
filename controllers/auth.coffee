@@ -44,4 +44,4 @@ auth = module.exports =
 		req.setUser null
 		res.redirect '/'
 	getState: (req, res) ->
-		res.json req.session.userId
+		res.json req.session.user
