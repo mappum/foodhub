@@ -16,7 +16,9 @@
       <ul class="nav">
       </ul>
       <ul class="nav pull-right">
-        <li><a href="/#/new">Post a recipe</a></li>
+        <% if(loggedIn) { %>
+          <li><a href="/#/new">Post a recipe</a></li>
+        <% } %>
         <li class="dropdown">
           <% if(loggedIn) { %>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
