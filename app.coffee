@@ -29,7 +29,7 @@ app.use (req, res, next) ->
 		else res.json doc
 
 	next()
-
-require('./routes') app
 app.use(require(__dirname + '/controllers/auth.coffee').middleware)
+require('./routes') app
+
 app.listen config.port

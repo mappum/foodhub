@@ -2,22 +2,14 @@ mongoose = require 'mongoose'
 Schema = mongoose.Schema
 ObjectId = Schema.Types.ObjectId
 
-Author =
-	userId: ObjectId
-	username: String
-	avatar: String
-
 Subrecipe =
-	url: String
-	author: Author
+	id: String
+	author: String
 	title: String
 
 schema = new Schema
 	title: String
-	author: Author
-	username:
-		type: String
-		index: true
+	author: String 
 	description: String
 	picture: String
 	instructions: [String]
