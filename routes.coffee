@@ -11,9 +11,10 @@ requireLogout = (req, res, next) ->
 
 module.exports = (app) ->
 	app.get '/recipes/:recipe', recipes.read
-	app.post '/recipes/:recipe', requireLogin, recipes.create
+	app.post '/recipes/', requireLogin, recipes.create
 	app.put '/recipes/:recipe', requireLogin, recipes.update
 	app.delete '/recipes/:recipe/', requireLogin, recipes.update
+	app.post '/recipes/:recipe/fork'
 
 	app.get '/users/:username', users.read
 	app.post '/users', users.create
