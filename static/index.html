@@ -90,61 +90,42 @@
       <div class="hero-unit span7">
         <h1>Find and share recipes</h1>
         <p>GrubHub is like GitHub for food, y&#x27;all.</p>
-        <a class="btn btn-success" href="/#/register">Sign up</a>
+        <% if(!loggedIn) { %>
+          <a class="btn btn-success" href="/#/register">Sign up</a>
+        <% } %>
       </div>
     </div>
 
     <div class="row-fluid">
       <h2><i class="icon icon-fork"></i>Most Forked</h2>
-      <ul class="recipe-collection">
-        <a href="/#/recipe/test"><li class="recipe span4">
-          <h3 class="title">Mushroom Stew</h3>
-          <span class="author">by mappum</span>
-          <img class="image" src="http://media-mcw.cursecdn.com/7/7e/Mushroomsoup.png">
-        </li></a>
-        <a href="/#/recipe/test"><li class="recipe span4">
-          <h3 class="title">Bread</h3>
-          <span class="author">by mappum</span>
-          <img class="image" src="http://media-mcw.cursecdn.com/f/ff/Bread2.png">
-        </li></a>
-        <a href="/#/recipe/test"><li class="recipe span4">
-          <h3 class="title">Steak</h3>
-          <span class="author">by mappum</span>
-          <img class="image" src="http://media-mcw.cursecdn.com/6/66/Steak.png">
-        </li></a>
-      </ul>
+      <div id="most-forked"></div>
       <div class="clear"></div>
     </div>
     <hr>
     <div class="row-fluid">
       <h2><i class="icon">&#xE055;</i>Recent</h2>
-      <ul class="recipe-collection">
-        <a href="/#/recipe/test"><li class="recipe span4">
-          <h3 class="title">Steak</h3>
-          <span class="author">by mappum</span>
-          <img class="image" src="http://media-mcw.cursecdn.com/6/66/Steak.png">
-        </li></a>
-        <a href="/#/recipe/test"><li class="recipe span4">
-          <h3 class="title">Mushroom Stew</h3>
-          <span class="author">by mappum</span>
-          <img class="image" src="http://media-mcw.cursecdn.com/7/7e/Mushroomsoup.png">
-        </li></a>
-        <a href="/#/recipe/test"><li class="recipe span4">
-          <h3 class="title">Bread</h3>
-          <span class="author">by mappum</span>
-          <img class="image" src="http://media-mcw.cursecdn.com/f/ff/Bread2.png">
-        </li></a>
-      </ul>
+      <div id="recent"></div>
       <div class="clear"></div>
     </div>
   </script>
 
+
+  <script type="text/template" id="template-recipe-thumbnail">
+    <a href="/#/recipe/<%= _id %>">
+      <h3 class="title"><%- title %></h3>
+      <span class="author">by <%- author %></span><br>
+      <img class="image" src="<%= picture %>">
+    </a>
+  </script>
+
   <script type="text/template" id="template-register">
-    <h1>Sign up for GrubHub</h1>
-    <div class="control-group"><input class="email" type="text" placeholder="Email address"></div>
-    <div class="control-group"><input class="username" type="text" placeholder="Username"></div>
-    <div class="control-group"><input class="password" type="password" placeholder="Password"></div>
-    <div class="control-group"><button class="btn btn-warning submit">Sign up</button></div>
+    <% if(!loggedIn) { %>
+      <h1>Sign up for GrubHub</h1>
+      <div class="control-group"><input class="email" type="text" placeholder="Email address"></div>
+      <div class="control-group"><input class="username" type="text" placeholder="Username"></div>
+      <div class="control-group"><input class="password" type="password" placeholder="Password"></div>
+      <div class="control-group"><button class="btn btn-warning submit">Sign up</button></div>
+    <% } %>
   </script>
 
   <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>

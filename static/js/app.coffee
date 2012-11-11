@@ -32,6 +32,9 @@ UserRouter = AppRouter.extend
 Recipe = RestModel.extend
 	path: 'recipes'
 
+RecipeCollection = Backbone.Collection.extend
+	model: Recipe
+
 RecipeRouter = AppRouter.extend
 	routes:
 		'recipe/:id': 'read'
@@ -113,6 +116,16 @@ RecipeView = ItemView.extend
 			unedit()
 		parent.empty().append child
 
+RecipeThumbnailView = ItemView.extend
+	tagName: 'li'
+	className: 'recipe span4'
+	template: '#template-recipe-thumbnail'
+
+RecipeCollectionView = Marionette.CollectionView.extend
+	tagName: 'ul'
+	className: 'recipe-collection'
+	itemView: RecipeThumbnailView
+
 ######## SESSION STUFF ########
 Session = Backbone.Model.extend
 	initialize: (options) ->
@@ -170,15 +183,18 @@ NavbarView = ItemView.extend
 		if e.which is 13 then @$el.find('fieldset.login .submit').trigger 'click'
 
 ######## PAGE STUFF ########
-FrontPageView = Marionette.ItemView.extend
+FrontPageView = Marionette.Layout.extend
 	tagName: 'div'
 	className: 'front container-fluid'
 	template: '#template-front'
+	regions:
+		mostForked: '#most-forked'
+		recent: '#recent'
 
-RegisterPageView = Marionette.ItemView.extend
+RegisterPageView = ItemView.extend
 	tagName: 'div'
-	className: 'register span6 centered'
-	template: '#template-register'
+	className: 'register span6 centered	template: '#template-register''
+
 	events:
 		'click .submit': 'register'
 	register: ->
@@ -193,7 +209,22 @@ PageRouter = AppRouter.extend
 		'register': 'register'
 		'/': 'front'
 		'/*': 'front'
-	front: -> @navigate new FrontPageView {model: @app.session}
+	front: ->
+		page = new FrontPageView {model: @app.session}
+		@navigate page
+
+		mostForkedCollection = new RecipeCollection
+		mostForkedCollection.url = '/mostforked/3'
+		mostForkedCollection.fetch()
+		page.mostForked.show new RecipeCollectionView
+			collection: mostForkedCollection
+
+		recentCollection = new RecipeCollection
+		recentCollection.url = '/mostrecent/3'
+		recentCollection.fetch()
+		page.recent.show new RecipeCollectionView
+			collection: recentCollection
+
 	register: -> @navigate new RegisterPageView {model: @app.session}
 
 ######## APP STUFF ########

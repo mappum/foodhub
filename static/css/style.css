@@ -235,7 +235,7 @@ h1, h2, h3, h4, h5, h6 {
 	height: 250px;
 	position: relative;	
 	overflow: hidden;
-	margin: 0 14px;
+	margin: 0 10px;
 }
 .recipe-collection li.recipe .image {
 	max-width: 100%;
