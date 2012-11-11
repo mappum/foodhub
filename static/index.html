@@ -28,11 +28,13 @@
           <% } else { %>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><input type="text" placeholder="Username or email"></li>
-              <li><input type="text" placeholder="Password"></li>
-              <li><button class="btn">Sign in</button></li>
+              <fieldset class="login">
+              <li><input type="text" class="user" placeholder="Username or email"></li>
+              <li><input type="password" class="password" placeholder="Password"></li>
+              <li><button class="btn submit">Sign in</button></li>
+              </fieldset>
               <li class="divider"></li>
-              <li><a href="#">Create a GrubHub account</a></li>
+              <li><a href="/#/register">Create a GrubHub account</a></li>
             </ul>
           <% } %>
         </li>

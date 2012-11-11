@@ -27,7 +27,6 @@ UserRouter = AppRouter.extend
 		'@:username': 'read'
 		'user/:username': 'read'
 	read: (username) ->
-		console.log username
 
 ######## RECIPE STUFF ########
 Recipe = RestModel.extend
@@ -116,7 +115,6 @@ RecipeView = ItemView.extend
 					text = child.val()
 					before = text.substr 0, child.get(0).selectionStart
 					after = text.substr child.get(0).selectionEnd
-					console.log before, after
 
 					newEl = $ document.createElement 'li'
 					newEl.attr 'class', parent.attr 'class'
@@ -133,7 +131,6 @@ RecipeView = ItemView.extend
 		unedit = (e) =>
 			if parent.hasClass 'focused' then return
 			text = child.val().trim()
-			console.log parent.parent
 			if not text and parent.prop('tagName') is 'LI' and parent.parent().find('li').length > 1
 				return parent.remove()
 			parent.empty().text text
@@ -155,11 +152,25 @@ Session = Backbone.Model.extend
 	initialize: (options) ->
 		#TODO: check session state
 		#this.set 'user', new User {username: 'mappum', avatar: 'http://placehold.it/128x128', userId: '0'}
+		_.bindAll @, 'login'
+	login: (user, pass) ->
 
 NavbarView = ItemView.extend
 	tagName: 'div'
 	className: 'navbar'
 	template: '#template-navbar'
+	events:
+		'click fieldset.login .submit': 'login'
+		'click fieldset.login': 'noClick'
+		'keypress fieldset.login': 'onKey'
+	login: (e) ->
+		login = @$el.find 'fieldset.login'
+		@model.login login.find('.user').val(), login.find('.password').val()
+	noClick: (e) ->
+		e.preventDefault()
+		return false
+	onKey: (e) ->
+		if e.which is 13 then @$el.find('fieldset.login .submit').trigger 'click'
 
 ######## PAGE STUFF ########
 FrontPageView = Marionette.ItemView.extend
@@ -178,7 +189,6 @@ PageRouter = AppRouter.extend
 Application = Marionette.Application.extend
 	saveScrollState: ->
 		@scrollStates[window.location.hash] = $(document).scrollTop()
-		console.log "saved '#{window.location.hash}' (#{$(document).scrollTop()})", @scrollStates
 
 	restoreScrollState: ->
 		scroll = 0
@@ -186,8 +196,6 @@ Application = Marionette.Application.extend
 			scroll = @scrollStates[window.location.hash]
 			@scrollStates[window.location.hash] = null
 		$(document).scrollTop scroll
-
-		console.log "restored '#{window.location.hash}' (#{scroll})", @scrollStates
 
 app = new Application
 app.addInitializer (options) ->
