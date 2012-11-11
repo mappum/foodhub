@@ -1,10 +1,9 @@
 models = require '../models'
 Recipe = models.Recipe
 
-module.exports =
+recipes = module.exports =
 
 	create: (req, res)->
-		console.log(req.body.title)
 		new Recipe(
 			title: req.body.title
 			description: req.body.description
@@ -19,6 +18,25 @@ module.exports =
 
 		).save res.mongo
 
+	fork: (req, res) ->
+		Recipe.findOne 
+			'_id': req.params.recipe 
+			, (err, doc)->
+				if err then res.error(401)
+				else
+					new Recipe(
+						title: doc.title
+						description: doc.description
+						ingredients: doc.ingredients
+						instructions: doc.instructions
+						picture: doc.picture
+						username: req.session.user.username
+						origin: 
+							id: doc._id
+							author: doc.author
+							title: doc.title
+
+					).save res.mongo
 	read: (req, res) ->
 		Recipe.findOne
 			'_id': req.params.recipe,
