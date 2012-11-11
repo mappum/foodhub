@@ -16,8 +16,7 @@ app.use express.session
 	secret: config.session.cookie.secret
 	key: config.session.cookie.key
 	maxAge: config.session.cookie.maxAge
-	ignore: config.session.ignore 
-
+	ignore: config.session.ignore
 
 app.use (req, res, next) ->
 	res.error = (code, err) ->

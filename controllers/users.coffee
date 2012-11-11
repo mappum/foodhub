@@ -24,6 +24,8 @@ module.exports =
 			password:
 				hash: hash.digest 'hex'
 				salt: salt.toString 'hex'
+
+		console.log req
 		req.session.regenerate (err)->
 			if err then res.error(500)
 			else

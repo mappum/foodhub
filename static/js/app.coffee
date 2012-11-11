@@ -153,7 +153,31 @@ Session = Backbone.Model.extend
 		#TODO: check session state
 		#this.set 'user', new User {username: 'mappum', avatar: 'http://placehold.it/128x128', userId: '0'}
 		_.bindAll @, 'login'
-	login: (user, pass) ->
+
+	getState: (data, callback) ->
+		$.ajax
+			url: '/auth'
+			type: 'POST'
+
+	login: (data, callback) ->
+		$.ajax
+			url: '/auth'
+			type: 'POST'
+			data: data
+			success: ->
+				window.location = ''
+				callback null
+			error: callback
+
+	register: (data, callback) ->
+		$.ajax
+			url: '/users'
+			type: 'POST'
+			data: data
+			success: ->
+				window.location = ''
+				callback null
+			error: callback
 
 NavbarView = ItemView.extend
 	tagName: 'div'
@@ -165,7 +189,9 @@ NavbarView = ItemView.extend
 		'keypress fieldset.login': 'onKey'
 	login: (e) ->
 		login = @$el.find 'fieldset.login'
-		@model.login login.find('.user').val(), login.find('.password').val()
+		@model.login
+			user: login.find('.user').val()
+			password: login.find('.password').val()
 	noClick: (e) ->
 		e.preventDefault()
 		return false
@@ -178,12 +204,26 @@ FrontPageView = Marionette.ItemView.extend
 	className: 'front container-fluid'
 	template: '#template-front'
 
+RegisterPageView = Marionette.ItemView.extend
+	tagName: 'div'
+	className: 'register span6 centered'
+	template: '#template-register'
+	events:
+		'click .submit': 'register'
+	register: ->
+		@model.register
+			email: @$el.find('.email').val()
+			password: @$el.find('.password').val()
+			username: @$el.find('.username').val(), (err, doc) ->
+
+
 PageRouter = AppRouter.extend
 	routes:
+		'register': 'register'
 		'/': 'front'
 		'/*': 'front'
-	front: ->
-		@navigate new FrontPageView {model: @app.session}
+	front: -> @navigate new FrontPageView {model: @app.session}
+	register: -> @navigate new RegisterPageView {model: @app.session}
 
 ######## APP STUFF ########
 Application = Marionette.Application.extend
