@@ -60,10 +60,15 @@ recipes = module.exports =
 		, res.mongo
 
 	mostForked: (req, res) ->
-		console.log 'called mostforked'
 		Recipe.find()
 		.sort('-numforks')
 		.limit(req.params.num) 
+		.exec res.mongo
+
+	mostRecent: (req, res) ->
+		Recipe.find()
+		.sort('-date')
+		.limit(req.params.num)
 		.exec res.mongo
 		
 

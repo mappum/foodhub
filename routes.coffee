@@ -11,6 +11,7 @@ requireLogout = (req, res, next) ->
 
 module.exports = (app) ->
 	app.get '/mostforked/:num', recipes.mostForked
+	app.get '/mostrecent/:num', recipes.mostRecent
 
 	app.get '/recipes/:recipe', recipes.read
 	app.post '/recipes', requireLogin, recipes.create
