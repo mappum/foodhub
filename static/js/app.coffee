@@ -8,6 +8,10 @@ RestModel = Backbone.Model.extend
 AppRouter = Marionette.AppRouter.extend
 	initialize: (options) ->
 		@app = options
+		_.bindAll @, 'navigate'
+	navigate: (view) ->
+		@app.mainRegion.show view
+		@app.restoreScrollState()
 
 ItemView = Marionette.ItemView.extend
 	initialize: ->
@@ -31,19 +35,14 @@ Recipe = RestModel.extend
 
 RecipeRouter = AppRouter.extend
 	routes:
-		':username/:id': 'read'
-		'/*': 'read'
-	read: (username, id) ->
+		':id': 'read'
+	read: (id) ->
 		#model = new Recipe
-		#	username: username
 		#	id: id
 		#model.fetch()
 		model = new Recipe
-			id: '123456'
-			author:
-				username: 'mappum'
-				avatar: 'http://placehold.it/128x128'
-				userId: '0'
+			id: id
+			author: 'mappum'
 			title: 'Mushroom Stew'
 			image: 'http://www.applecrumbles.com/wp-content/uploads/2009/11/DSC_2263.jpg'
 			description: 'Mushrooms. Boil \'em, mash \'em, stick \'em in a stew. Bla bla bla bla ofgihd dsgoihj gjfdg gj dfgjo text about mushroom stew.\n\nSomethign else.'
@@ -72,15 +71,14 @@ RecipeRouter = AppRouter.extend
 			origin:
 				id: '123455'
 				title: 'Crappy Mushroom Stew'
-				author:
-					username: 'kepzorz'
+				author: 'kepzorz'
 
-		@app.mainRegion.show new RecipeView {model: model, session: @app.session}
+		@navigate new RecipeView {model: model, session: @app.session}
 
 RecipeView = ItemView.extend
 	template: '#template-recipe'
 	tagName: 'div'
-	className: 'row-fluid recipe'
+	className: 'container-fluid recipe'
 	events:
 		'mouseenter .editable': 'edit'
 
@@ -148,36 +146,66 @@ RecipeView = ItemView.extend
 		child.blur (e) ->
 			parent.removeClass 'focused'
 			unedit()
-
 		parent.empty().append child
 
 ######## SESSION STUFF ########
 Session = Backbone.Model.extend
 	initialize: (options) ->
 		#TODO: check session state
-		this.set 'user', new User {username: 'mappum', avatar: 'http://placehold.it/128x128', userId: '0'}
+		#this.set 'user', new User {username: 'mappum', avatar: 'http://placehold.it/128x128', userId: '0'}
 
-NavbarView = Marionette.ItemView.extend
+NavbarView = ItemView.extend
 	tagName: 'div'
 	className: 'navbar'
 	template: '#template-navbar'
 
+######## PAGE STUFF ########
+FrontPageView = Marionette.ItemView.extend
+	tagName: 'div'
+	className: 'front container-fluid'
+	template: '#template-front'
+
+PageRouter = AppRouter.extend
+	routes:
+		'/': 'front'
+		'/*': 'front'
+	front: ->
+		@navigate new FrontPageView {model: @app.session}
+
 ######## APP STUFF ########
-App = new Marionette.Application
+Application = Marionette.Application.extend
+	saveScrollState: ->
+		@scrollStates[window.location.hash] = $(document).scrollTop()
+		console.log "saved '#{window.location.hash}' (#{$(document).scrollTop()})", @scrollStates
 
-App.addInitializer (options) ->
-	App.session = new Session
+	restoreScrollState: ->
+		scroll = 0
+		if @scrollStates[window.location.hash]?
+			scroll = @scrollStates[window.location.hash]
+			@scrollStates[window.location.hash] = null
+		$(document).scrollTop scroll
 
-	App.addRegions
+		console.log "restored '#{window.location.hash}' (#{scroll})", @scrollStates
+
+app = new Application
+app.addInitializer (options) ->
+	app.session = new Session
+
+	app.scrollStates = {}
+
+	app.addRegions
 		mainRegion: '#main'
 		navbarRegion: '#navbar'
 
-	App.navbarView = new NavbarView {model: App.session}
-	App.navbarRegion.show App.navbarView
+	app.navbarView = new NavbarView {model: app.session}
+	app.navbarRegion.show app.navbarView
 
-	new UserRouter App
-	new RecipeRouter App
+	new UserRouter app
+	new RecipeRouter app
+	new PageRouter app
 
 	Backbone.history.start()
 
-$ -> App.start()
+	$(document).scroll ->
+		app.saveScrollState()
+$ -> app.start()

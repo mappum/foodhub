@@ -8,7 +8,7 @@
 </head>
 <body>
   <div id="navbar"></div>
-  <div id="main" class="container-fluid"></div>
+  <div id="main"></div>
 
   <script type="text/template" id="template-navbar">
     <div class="navbar-inner">
@@ -41,12 +41,14 @@
   </script>
 
   <script type="text/template" id="template-recipe">
-    <% var editable = author.userId === session.get('user').get('userId') ? 'editable' : '' %>
+    <% var loggedIn = typeof session.get('user') !== 'undefined' && session.get('user') != null %>
+    <% var editable = (loggedIn && author === session.get('user').get('username')) ? 'editable' : '' %>
     <div class="row-fluid">
       <div class="meta span7">
         <h1 class="<%= editable %>"><%- title %></h1>
+        <span class="author">by <%- author %></span>
         <% if(typeof origin !== 'undefined' && origin != null) { %>
-          <span class="origin">Forked from <%- origin.author.username %>&#x27;s <a href="/#/<%- origin.author.username %>/<%= origin.id %>"><%- origin.title %></a></span>
+          <span class="origin"> - Forked from <%- origin.author %>&#x27;s <a href="/#/<%= origin.id %>"><%- origin.title %></a></span>
         <% } %>
         <p class="<%= editable %>"><%- description %></p>
       </div>
@@ -56,9 +58,9 @@
     </div>
 
     <div class="row-fluid">
-      <div class="recipe-image"><img src="<%= image %>"></div>
+      <div class="stretch-image"><img src="<%= image %>"></div>
     </div>
-    <div class="image-clear"></div>
+    <div class="stretch-image-clear"></div>
 
     <div class="row-fluid">
       <div class="span5">
@@ -80,6 +82,37 @@
     </div>
   </script>
 
+  <script type="text/template" id="template-front">
+    <div class="row-fluid intro">
+      <div class="hero-unit span7">
+        <h1>Bla bla bla</h1>
+        <p>Something something GrubHub.<br>Somethign something find and share recipes.</p>
+        <a class="btn btn-success" href="/#/register">Sign up</a>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <h2><i class="icon icon-fork"></i>Most Forked</h2>
+      <ul class="recipe-collection">
+        <a href="/#/foo"><li class="recipe span4">
+          <h3 class="title">Mushroom Stew</h3>
+          <span class="author">by mappum</span>
+          <img class="image" src="http://www.applecrumbles.com/wp-content/uploads/2009/11/DSC_2263.jpg">
+        </li></a>
+        <a href="/#/foo"><li class="recipe span4">
+          <h3 class="title">Mushroom Stew</h3>
+          <span class="author">by mappum</span>
+          <img class="image" src="http://www.applecrumbles.com/wp-content/uploads/2009/11/DSC_2263.jpg">
+        </li></a>
+        <a href="/#/foo"><li class="recipe span4">
+          <h3 class="title">Mushroom Stew</h3>
+          <span class="author">by mappum</span>
+          <img class="image" src="http://www.applecrumbles.com/wp-content/uploads/2009/11/DSC_2263.jpg">
+        </li></a>
+      </ul>
+    </div>
+  </script>
+
   <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
   <script type="text/javascript" src="/js/underscore-min.js"></script>
   <script type="text/javascript" src="/js/backbone-min.js"></script>
@@ -89,18 +122,18 @@
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     new function($) {
-    $.fn.setCursorPosition = function(pos) {
-      if ($(this).get(0).setSelectionRange) {
-        $(this).get(0).setSelectionRange(pos, pos);
-      } else if ($(this).get(0).createTextRange) {
-        var range = $(this).get(0).createTextRange();
-        range.collapse(true);
-        range.moveEnd('character', pos);
-        range.moveStart('character', pos);
-        range.select();
+      $.fn.setCursorPosition = function(pos) {
+        if ($(this).get(0).setSelectionRange) {
+          $(this).get(0).setSelectionRange(pos, pos);
+        } else if ($(this).get(0).createTextRange) {
+          var range = $(this).get(0).createTextRange();
+          range.collapse(true);
+          range.moveEnd('character', pos);
+          range.moveStart('character', pos);
+          range.select();
+        }
       }
-    }
-  }(jQuery);
+    }(jQuery);
   </script>
 </body>
 </html>
