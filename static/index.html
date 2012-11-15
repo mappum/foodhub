@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>GrubHub - Find and share recipes</title>
+  <title>FoodHub - Find and share recipes</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
@@ -12,7 +12,7 @@
 
   <script type="text/template" id="template-navbar">
     <div class="navbar-inner">
-      <a class="brand" href="#"><i class="icon">&#xE277;</i>GrubHub</a>
+      <a class="brand" href="#"><i class="icon">&#xE277;</i>FoodHub</a>
       <ul class="nav">
       </ul>
       <ul class="nav pull-right">
@@ -39,7 +39,7 @@
                 <li><button class="btn submit">Sign in</button></li>
               </fieldset>
               <li class="divider"></li>
-              <li><a href="/#/register">Create a GrubHub account</a></li>
+              <li><a href="/#/register">Create a FoodHub account</a></li>
             </ul>
           <% } %>
         </li>
@@ -108,7 +108,7 @@
     <div class="row-fluid intro">
       <div class="hero-unit span7">
         <h1>Find and share recipes</h1>
-        <p>GrubHub is like GitHub for food, y&#x27;all.</p>
+        <p>FoodHub is like GitHub for food, y&#x27;all.</p>
         <% if(!loggedIn) { %>
           <a class="btn btn-success" href="/#/register">Sign up</a>
         <% } %>
@@ -139,7 +139,7 @@
 
   <script type="text/template" id="template-register">
     <% if(!loggedIn) { %>
-      <h1>Sign up for GrubHub</h1>
+      <h1>Sign up for FoodHub</h1>
       <fieldset class="register-form">
         <span class="errorMessage"></span>
         <div class="control-group"><input class="email" type="text" placeholder="Email address"></div>
